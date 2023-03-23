@@ -10,7 +10,10 @@ def search_in_elastic(es_object, index_name, search_query):
         "size": 10000,
         "query": {
             "match": {
-                "text": search_query
+                "text": {
+                    "query": search_query,
+                    "fuzziness": "1",
+                }
             }
         },
         "sort": [
@@ -28,6 +31,7 @@ def search_in_elastic(es_object, index_name, search_query):
         print("Nothing was found for your query")
         return None
     else:
+        print(len(result))
         pprint(result)
         return result
 
@@ -36,4 +40,4 @@ if __name__ == "__main__":
     file_name = "../../data/posts.csv"
     es = connect_elasticsearch()
     if es:
-        s = search_in_elastic(es, 'documents', 'я')
+        s = search_in_elastic(es, 'documents', 'всем привет!')
