@@ -51,6 +51,6 @@ def database_entry(data):
 
 
 if __name__ == "__main__":
-    data_f = '../Data/posts.csv'
+    data_f = '../data/posts.csv'
     data_t = data_parse(data_f)
     database_entry(data_t)

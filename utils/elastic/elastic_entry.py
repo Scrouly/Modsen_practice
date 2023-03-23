@@ -6,6 +6,7 @@ import json
 
 def connect_elasticsearch():
     """"Соединение с Elasticsearch."""
+    logging.basicConfig(level=logging.ERROR)
     _es = None
     _es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
     if _es.ping():
@@ -16,10 +17,13 @@ def connect_elasticsearch():
         return None
 
 
-def data_to_elastic(data_file):
+def data_to_elastic(data_file, id=0):
     """Конвертация данных в формат elastic'а"""
     for record in data_file.to_dict(orient="records"):
-        yield '{ "index" : { "_index" : "%s", "_type" : "%s"}}' % ("documents", "document")
+        id += 1
+        yield '{ "index" : { "_index" : "%s", "_type" : "%s", "_id" : "%s"}}' % (
+            "documents", "document", id)
+
         yield json.dumps(record, default=int)
 
 
@@ -46,7 +50,5 @@ def elastic_entry(data_file):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.ERROR)
-    file_name = "../Data/posts.csv"
+    file_name = "../../data/posts.csv"
     elastic_entry(file_name)
-
