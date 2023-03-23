@@ -22,6 +22,7 @@ def search_in_elastic(es_object, index_name, search_query):
         ]
     }
     result = es_object.search(index=index_name, body=json.dumps(search_object))
+    es_object.close()
     result = [{"id": item["_source"]["id"]} for item in result["hits"]["hits"]]
     if not result:
         print("Nothing was found for your query")
@@ -36,4 +37,3 @@ if __name__ == "__main__":
     es = connect_elasticsearch()
     if es:
         s = search_in_elastic(es, 'documents', 'я')
-        es.close()

@@ -27,28 +27,28 @@ def data_to_elastic(data_file, id=0):
         yield json.dumps(record, default=int)
 
 
-def elastic_entry(data_file):
+def elastic_entry(es_object, data_file):
     """Добавление данных в Elastic"""
     # Cчитывает колонку text из csv и добавляет колонку id
     df = pd.read_csv(data_file, usecols=[0])
     df["id"] = df.index + 1
 
     # Поключение к elastic
-    es = connect_elasticsearch()
-    if es:
+    if es_object:
         # Создание нового индекса
-        if es.indices.exists(index='documents'):
-            es.indices.delete(index='documents')
-        es.indices.create(index='documents')
+        if es_object.indices.exists(index='documents'):
+            es_object.indices.delete(index='documents')
+        es_object.indices.create(index='documents')
         # Запись данных
-        data_recording = es.bulk(data_to_elastic(df))
+        data_recording = es_object.bulk(data_to_elastic(df))
         if data_recording["errors"]:
             print("Failed to write data to elastic")
         else:
             print("Data was successfully written to elastic")
-        es.close()
+        es_object.close()
 
 
 if __name__ == "__main__":
     file_name = "../../data/posts.csv"
-    elastic_entry(file_name)
+    es = connect_elasticsearch()
+    elastic_entry(es, file_name)
