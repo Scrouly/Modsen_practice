@@ -31,8 +31,7 @@ def search_in_elastic(es_object, index_name, search_query):
         print("Nothing was found for your query")
         return None
     else:
-        print(len(result))
-        pprint(result)
+        print(f"Posts found by request: {len(result)}")
         return result
 
 
