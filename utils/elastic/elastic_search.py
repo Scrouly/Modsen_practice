@@ -1,6 +1,8 @@
 from pprint import pprint
-from utils.elastic.elastic_entry import connect_elasticsearch
+
 import json
+
+from utils.elastic.elastic_connection import connect_elasticsearch
 
 
 def search_in_elastic(es_object, index_name, search_query):

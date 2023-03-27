@@ -1,20 +1,7 @@
 import pandas as pd
-from elasticsearch import Elasticsearch
-import logging
 import json
 
-
-def connect_elasticsearch():
-    """"Соединение с Elasticsearch."""
-    logging.basicConfig(level=logging.ERROR)
-    _es = None
-    _es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
-    if _es.ping():
-        print('Elasticsearch is connected')
-        return _es
-    else:
-        print('Elasticsearch could not connect!')
-        return None
+from utils.elastic.elastic_connection import connect_elasticsearch
 
 
 def data_to_elastic(data_file, id=0):
