@@ -1,6 +1,7 @@
 import pandas as pd
+from sqlalchemy import inspect
 
-from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy_utils import database_exists, create_database, drop_database
 
 from utils.sql_alchemy.database_connection import make_engine, create_session
 from utils.sql_alchemy.database_models import Document, Base
@@ -21,6 +22,7 @@ def database_entry(session, engine, data):
             create_database(engine.url, encoding='utf8mb4')
             print("Database successfully created")
 
+
         Base.metadata.create_all(engine)
         print("Table successfully created")
 
@@ -31,8 +33,7 @@ def database_entry(session, engine, data):
             print("Data successfully inserted into the Table")
     except Exception as er:
         print(f'DB|Error:{er}')
-    finally:
-        session.close()
+
 
 if __name__ == "__main__":
     database_entry(create_session(), make_engine(), data_parse('../../data/posts.csv'))

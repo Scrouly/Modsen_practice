@@ -1,4 +1,5 @@
 from pprint import pprint
+import os
 import pandas as pd
 from utils.elastic.elastic_entry import connect_elasticsearch
 from utils.elastic.elastic_search import search_in_elastic
@@ -20,13 +21,12 @@ def database_search(session, id_list):
         # Записывает результат возвращённый из бд в .csv
         posts = pd.DataFrame([(post.id, post.rubrics, post.text, post.created_date) for post in result],
                              columns=['id', 'rubrics', 'text', 'created_date'])
-        posts.to_csv('../../data/posts_search_result.csv', index=False)
+        posts.to_csv(os.path.abspath("posts_search_result.csv"), index=False)
 
         return result
     except Exception as er:
         print(f'DB|Error:{er}')
-    finally:
-        session.close()
+
 
 
 if __name__ == "__main__":

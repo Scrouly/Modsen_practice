@@ -7,6 +7,6 @@ Base = declarative_base()
 class Document(Base):
     __tablename__ = 'document'
     id = Column(Integer, primary_key=True)
-    rubrics = Column(ARRAY(Text()), nullable=False)
+    rubrics = Column(Text, nullable=False)
     text = Column(Text, nullable=False)
     created_date = Column(Date, nullable=False)
