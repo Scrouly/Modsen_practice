@@ -19,26 +19,27 @@ app = FastAPI(
 
 @app.get('/documents/search')
 def search_by_text(search_query: str):
-    search_list = search_in_elastic(connect_elasticsearch(), 'documents', search_query)
-    result = database_search(create_session(), search_list)
-    return {"result": result}
-
-
-@app.get('/documents/search')
-def search_by_text(search_query: str):
-    search_list = search_in_elastic(connect_elasticsearch(), 'documents', search_query)
-    result = database_search(create_session(), search_list)
-    return {"result": result}
+    """Поиск документов исходя из текстового запроса"""
+    es_object = connect_elasticsearch()
+    if es_object:
+        search_list = search_in_elastic(es_object, 'documents', search_query)
+        result = database_search(create_session(), search_list)
+        return {"result": result}
+    else:
+        return {"result": 'Connection Error'}
 
 
 @app.post('/documents/remove')
 def delete_by_id(document_id: int):
-    es_result = delete_by_id_elastic(connect_elasticsearch(), 'documents', document_id)
-    db_result = delete_by_id_db(create_session(), document_id)
-    return {"result": (es_result,db_result)}
+    """Удаление документов из Elastic и MySQL по id"""
+    es_object = connect_elasticsearch()
+    if es_object:
+        es_result = delete_by_id_elastic(es_object, 'documents', document_id)
+        db_result = delete_by_id_db(create_session(), document_id)
+        return {"result": (es_result, db_result)}
+    else:
+        return {"result": 'Connection Error'}
 
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True, use_colors=True)
-# print([letter for letter in arr if unique_string[0] in letter])
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

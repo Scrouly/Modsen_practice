@@ -20,17 +20,18 @@ def database_entry(session, engine, data):
     try:
         if not database_exists(engine.url):
             create_database(engine.url, encoding='utf8mb4')
-            print("Database successfully created")
+            print("DB|Database successfully created")
 
-
+        Base.metadata.drop_all(engine)
         Base.metadata.create_all(engine)
-        print("Table successfully created")
+        print("DB|Table successfully created")
 
         with session() as session:
+
             documents = [Document(text=text, created_date=date, rubrics=rubrics) for text, date, rubrics in data]
             session.add_all(documents)
             session.commit()
-            print("Data successfully inserted into the Table")
+            print("DB|Data successfully inserted into the Table")
     except Exception as er:
         print(f'DB|Error:{er}')
 
