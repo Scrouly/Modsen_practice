@@ -2,9 +2,9 @@ import os
 
 from utils.elastic.elastic_connection import connect_elasticsearch
 from utils.elastic.elastic_entry import elastic_entry
-from utils.my_sql.database_entry import data_parse
-from utils.sql_alchemy.database_connection import create_session, make_engine
-from utils.sql_alchemy.database_entry import database_entry
+from utils.database.database_entry import data_parse
+from utils.database.database_connection import create_session, make_engine
+from utils.database.database_entry import database_entry
 
 file_name = os.path.abspath("data/posts.csv")
 es = connect_elasticsearch()

@@ -1,16 +1,12 @@
-# This is a sample Python script.
-from datetime import time
-from pprint import pprint
-
 import uvicorn
 from fastapi import FastAPI
 
 from utils.elastic.elastic_connection import connect_elasticsearch
 from utils.elastic.elastic_delete import delete_by_id_elastic
 from utils.elastic.elastic_search import search_in_elastic
-from utils.sql_alchemy.database_connection import create_session
-from utils.sql_alchemy.database_delete import delete_by_id_db
-from utils.sql_alchemy.database_search import database_search
+from utils.database.database_connection import create_session
+from utils.database.database_delete import delete_by_id_db
+from utils.database.database_search import database_search
 
 app = FastAPI(
     title="SearchEngine"

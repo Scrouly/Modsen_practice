@@ -1,5 +1,5 @@
-from utils.sql_alchemy.database_connection import create_session
-from utils.sql_alchemy.database_models import Document
+from utils.database.database_connection import create_session
+from utils.database.database_models import Document
 
 
 def delete_by_id_db(session, id):
@@ -15,7 +15,3 @@ def delete_by_id_db(session, id):
                 return f'DB|Error: document with id {id} does not exist'
     except Exception as er:
         print(f'DB|Error:{er}')
-
-
-if __name__ == "__main__":
-    delete_by_id_db(create_session(), 4)

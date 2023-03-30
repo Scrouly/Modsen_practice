@@ -3,8 +3,8 @@ from sqlalchemy import inspect
 
 from sqlalchemy_utils import database_exists, create_database, drop_database
 
-from utils.sql_alchemy.database_connection import make_engine, create_session
-from utils.sql_alchemy.database_models import Document, Base
+from utils.database.database_connection import make_engine, create_session
+from utils.database.database_models import Document, Base
 
 
 def data_parse(data_file) -> list:
@@ -34,7 +34,3 @@ def database_entry(session, engine, data):
             print("DB|Data successfully inserted into the Table")
     except Exception as er:
         print(f'DB|Error:{er}')
-
-
-if __name__ == "__main__":
-    database_entry(create_session(), make_engine(), data_parse('../../data/posts.csv'))
