@@ -1,9 +1,5 @@
-from pprint import pprint
 import os
 import pandas as pd
-from utils.elastic.elastic_entry import connect_elasticsearch
-from utils.elastic.elastic_search import search_in_elastic
-from utils.database.database_connection import create_session
 
 from utils.database.database_models import Document
 

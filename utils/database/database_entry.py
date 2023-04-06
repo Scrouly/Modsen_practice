@@ -1,9 +1,7 @@
 import pandas as pd
-from sqlalchemy import inspect
 
-from sqlalchemy_utils import database_exists, create_database, drop_database
+from sqlalchemy_utils import database_exists, create_database
 
-from utils.database.database_connection import make_engine, create_session
 from utils.database.database_models import Document, Base
 
 
