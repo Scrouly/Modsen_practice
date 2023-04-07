@@ -2,8 +2,9 @@
 
 1. Для запуска необходимо наличие MySQL и ElasticSearch-7.17.0
 2. Скопировать приложение на локалку - `git clone https://github.com/Scrouly/Modsen_practice`
-3. Создать и заполнить бд и эластик с помощью `python fill_out_databases.py`
-4. Запустить само приложение с помощью `python main.py`
+3. Создать в корневой папке .env файл и записать в него логин и пароль от MySQL в формате: `mysql_password=password mysql_username=login`
+4. Создать и заполнить бд и эластик с помощью `python fill_out_databases.py`
+5. Запустить само приложение с помощью `python main.py`
 
 # Как работать
 
