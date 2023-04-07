@@ -1,5 +1,6 @@
 import os
 
+from utils.database.database_get_all_data import database_get_all
 from utils.elastic.elastic_connection import connect_elasticsearch
 from utils.elastic.elastic_entry import elastic_entry
 from utils.database.database_entry import data_parse
@@ -14,5 +15,6 @@ engine = make_engine()
 
 if __name__ == "__main__":
     #Вызов функций по заполнению/перезаписи Elastic и MySQL
-    elastic_entry(es, file_name)
     database_entry(session, make_engine(), data_parse(file_name))
+    data = database_get_all(session)
+    elastic_entry(es, data)

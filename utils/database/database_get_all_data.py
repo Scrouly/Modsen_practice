@@ -24,6 +24,4 @@ def database_get_all(session):
 
 if __name__ == "__main__":
     session = create_session()
-    print(database_get_all(session))
-    for i in database_get_all(session):
-       print(i)
+
